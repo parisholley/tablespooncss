@@ -21,7 +21,7 @@ From what I have seen, all frameworks that live outside of SASS require markup. 
 2. Tables defy the semantic gods and are for n00bs, use divs! 
 3. I'm sippin on my margarita, sitting on a floatie, look how my divs resize with the browser!
 4. w00t, media queries, lets make CSS complicated: RESPONSIVE! GRIDS! LIGHTS! BUTTONS! MOOOOOOBILLLLLLEEEEE!
-5. I just want this thing to work on mobile.
+5. I just want this thing to work on a phone.
 
 I am at #5 at this point. A designer provides a PSD, and it needs to look good. What major problems do these frameworks truly solve that is worth the complication?
 
@@ -37,9 +37,9 @@ IE 6/7 make up a few percent of market share and it isn't worth developing for. 
 
 # Behavior
 
-## Mobile or Desktop Only
+## Phone or Desktop Only
 
-Currently, I had no need to customize the design based on tablets, so it makes this library very simple. All definitions by default apply to the desktop and mobile will fallback to a single column design. HOWEVER, there is nothing stopping you from using media queries on columns and optimizing further on a table, this library will not lock you into a grid.
+Currently, I had no need to customize the design based on tablets, so it makes this library very simple. All definitions by default apply to the desktop and phone will fallback to a single column design. HOWEVER, there is nothing stopping you from using media queries on columns and optimizing further on a table, this library will not lock you into a grid.
 
 ## Fixed, then Fluid
 
@@ -170,10 +170,10 @@ In this example, I can define my own behavior based on the device width without 
 	}
 
 ### Padding Wrapper (Only on Desktop)
-I would recommend not going with this approach as typically a slight padding looks good on every width (even mobile), but perhaps you want a smaller amount when on mobile.
+I would recommend not going with this approach as typically a slight padding looks good on every width (even on phone), but perhaps you want a smaller amount when on a phone.
 
 	#wrapper{
-		padding-left: 10px; // applies to mobile
+		padding-left: 10px; // applies to phone
 		padding-right: 10px;
 
 		@include table(1000px){
@@ -183,7 +183,7 @@ I would recommend not going with this approach as typically a slight padding loo
 	}
 
 ### Padding Column (Only on Desktop)
-This example shows how you could have right rail design that has space between the main content, but only applies on the desktop because when on mobile this will be a single column layout and a 20px padding will look odd.
+This example shows how you could have right rail design that has space between the main content, but only applies on the desktop because when on a phone this will be a single column layout and a 20px padding will look odd.
 
 	#wrapper{
 		@include table(1000px);
@@ -215,7 +215,7 @@ This example shows how you could have right rail design that has space between t
 	#wrapper{
 		display: block;
 
-		@include mobile{
+		@include phone{
 			display: none;
 		}
 	}
@@ -226,7 +226,7 @@ This example shows how you could have right rail design that has space between t
 			display: block;
 		}
 
-		@include mobile{
+		@include phone{
 			display: none;
 		}
 	}
