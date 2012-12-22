@@ -1,44 +1,74 @@
-@mixin table($width:100%){
-	@include desktop{
-		display: table;
-		box-sizing: border-box;
+$ts-responsive: true;
 
-		@if unit($width) == 'px' {
-			// css spec says max-width only applies to display:block, so we work around by using media queries
-			@media screen and (max-width: $width - 1) {
-				width: 100%;
-			}
+@mixin nonresponsive{
+	$ts-responsive: false;
 
-			@media screen and (min-width: $width) {
+	@content;
+
+	$ts-responsive: true;
+}
+
+@mixin table($width:100%, $responsive: true){
+	box-sizing: border-box;
+
+	$ts-responsive: $responsive;
+
+	@if $ts-responsive == true {
+		@include desktop{
+			display: table;
+
+			@if unit($width) == 'px' {
+				// css spec says max-width only applies to display:block, so we work around by using media queries
+				@media screen and (max-width: $width - 1) {
+					width: 100%;
+				}
+
+				@media screen and (min-width: $width) {
+					width: $width;
+					margin-left: auto;
+					margin-right: auto;
+				}
+			} @else {
 				width: $width;
-				margin-left: auto;
-				margin-right: auto;
 			}
-		} @else {
-			width: $width;
+
+			@content;
 		}
+	} @else {
+		display: table;
+		width: $width;
 
 		@content;
 	}
 }
 
 @mixin row{
-	@include desktop{
+	@if $ts-responsive == true {
+		@include desktop{
+			display: table-row;
+		}
+	} @else {
 		display: table-row;
 	}
 }
 
 @mixin column($align:top){
-	@include phone{
-		display: block;
-		width: 100%;
-	}
+	box-sizing: border-box;
 
-	@include desktop{
-		box-sizing: border-box;
+	@if $ts-responsive == true {
+		@include phone{
+			display: block;
+			width: 100%;
+		}
+
+		@include desktop{
+			display: table-cell;
+			vertical-align: $align;
+
+			@content;
+		}	
+	} @else {
 		display: table-cell;
 		vertical-align: $align;
-
-		@content;
-	}	
+	}
 }

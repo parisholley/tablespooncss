@@ -202,6 +202,54 @@ This example shows how you could have right rail design that has space between t
 		}
 	}
 
+### Disable Responsiveness (Approach 1)
+	Sometimes you may not want to move to a single column layout when on a phone, so you can disable that behavior. NOTE: If you have problems with it affecting other elements, try using approach 2 which is much more confined.
+
+	#wrapper{
+		@include table(1000px);
+
+		#col{
+			@include col;
+
+			#twocol{
+				@include table(100%, false);
+
+				#left{
+					@include column;
+				}
+
+				#right{
+					@include column;
+				}
+			}
+		}
+	}
+
+### Disable Responsiveness (Approach 2)
+	Sometimes you may not want to move to a single column layout when on a phone, so you can disable that behavior. NOTE: If you have problems with it affecting other elements, try using approach 2 which is much more confined.
+
+	#wrapper{
+		@include table(1000px);
+
+		#col{
+			@include col;
+
+			@include nonresponsive{
+				#twocol{
+					@include table(100%);
+
+					#left{
+						@include column;
+					}
+
+					#right{
+						@include column;
+					}
+				}
+			}
+		}
+	}
+
 ### Phone/Desktop Targeting (Approach 1)
 	#wrapper{
 		display: none;
