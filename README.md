@@ -1,10 +1,6 @@
-# tablespoon
+# Philosophy
 
-Sassy and simple responsive design using CSS tables. Look ma, NO GRID!
-
-## Philosophy
-
-### No Math, No Gutters, No "Grid" Just Simple
+## No Math, No Gutters, No "Grid" Just Simple
 
 Every CSS/Grid/Responsive framework in my opinion is just too complicated and limiting.
 
@@ -17,7 +13,7 @@ In this design, I go with the idea that the "grid"/table is PURE layout. If you 
 
 Keep your grid simple, nice even numbers/percentages and add spacing when it is needed, otherwise you will fight frameworks when you want to use the full width of the column;
 
-### No Markup
+## No Markup
 
 From what I have seen, all frameworks that live outside of SASS require markup. Here is the progression of styling over the years:
 
@@ -30,25 +26,30 @@ From what I have seen, all frameworks that live outside of SASS require markup. 
 I am at #5 at this point. A designer provides a PSD, and it needs to look good. What major problems do these frameworks truly solve that is worth the complication?
 
 
-### box-sizing: border-box
+## box-sizing: border-box
 
 This in my opinion reinforces simplicity. If I say the width is 1000px, it is a 1000px, regardless of padding, borders, etc. You can always wrap a container and style it or place padding on the actual content, and not your layout.
 
-## Behavior
+## IE >= 8
 
-### Mobile or Desktop Only
+IE 6/7 make up a few percent of market share and it isn't worth developing for. IE >= 8 may require some help using common polyfil libraries such as modernizr or respond.js.
+
+
+# Behavior
+
+## Mobile or Desktop Only
 
 Currently, I had no need to customize the design based on tablets, so it makes this library very simple. All definitions by default apply to the desktop and mobile will fallback to a single column design. HOWEVER, there is nothing stopping you from using media queries on columns and optimizing further on a table, this library will not lock you into a grid.
 
-### Fixed, then Fluid
+## Fixed, then Fluid
 
 By default, any widths/percentages passed into mixins will ONLY apply to the desktop. Any table that is defined as a fixed width will become fluid soon as it becomes to big to display in the browser.
 
-## How To Use
+# How To Use
 
 I assume at this point you know how to setup a SASS project, if not, im sorry, just too lazy to tell you how.
 
-### Import
+## Import
 
 Currently, you just need to drop this repo into a folder (call it "tablespoon"?) that is relative to your other .scss files and include this:
 
@@ -56,9 +57,14 @@ Currently, you just need to drop this repo into a folder (call it "tablespoon"?)
 
 At some point I will turn this into a ruby GEM.
 
-### Examples
+### IE 8 Support
 
-#### Fixed Widths
+In order to support IE8 (doesn't recognize HTML elements or media queries), you will need to use [html5shiv](https://github.com/aFarkas/html5shiv) and [respond](https://github.com/scottjehl/Respond) or [modernizr](http://modernizr.com/) which has support for both.
+
+
+## Examples
+
+### Fixed Widths
 	#wrapper{
 		@include table(1000px);
 
@@ -73,7 +79,7 @@ At some point I will turn this into a ruby GEM.
 		}
 	}
 
-#### Fluid Widths
+### Fluid Widths
 	#wrapper{
 		@include table(1000px);
 
@@ -88,7 +94,7 @@ At some point I will turn this into a ruby GEM.
 		}
 	}	
 
-#### Hybrid Widths
+### Hybrid Widths
 	#wrapper{
 		@include table(1000px);
 
@@ -103,7 +109,7 @@ At some point I will turn this into a ruby GEM.
 		}
 	}		
 
-#### Nested Columns
+### Nested Columns
 	#wrapper{
 		@include table(1000px);
 
@@ -132,7 +138,7 @@ At some point I will turn this into a ruby GEM.
 		}
 	}
 
-#### Media Query Widths
+### Media Query Widths
 In this example, I can define my own behavior based on the device width without being locked into a grid layout or HTML markup.
 
 	#wrapper{
@@ -155,7 +161,7 @@ In this example, I can define my own behavior based on the device width without 
 		}
 	}
 
-#### Padding Wrapper (All Devices)
+### Padding Wrapper (All Devices)
 	#wrapper{
 		@include table(1000px); // effective width is 960px due to padding
 
@@ -163,7 +169,7 @@ In this example, I can define my own behavior based on the device width without 
 		padding-right: 20px;
 	}
 
-#### Padding Wrapper (Only on Desktop)
+### Padding Wrapper (Only on Desktop)
 I would recommend not going with this approach as typically a slight padding looks good on every width (even mobile), but perhaps you want a smaller amount when on mobile.
 
 	#wrapper{
@@ -176,7 +182,7 @@ I would recommend not going with this approach as typically a slight padding loo
 		}
 	}
 
-#### Padding Column (Only on Desktop)
+### Padding Column (Only on Desktop)
 This example shows how you could have right rail design that has space between the main content, but only applies on the desktop because when on mobile this will be a single column layout and a 20px padding will look odd.
 
 	#wrapper{
@@ -196,7 +202,7 @@ This example shows how you could have right rail design that has space between t
 		}
 	}
 
-#### Phone/Desktop Targeting (Approach 1)
+### Phone/Desktop Targeting (Approach 1)
 	#wrapper{
 		display: none;
 
@@ -205,7 +211,7 @@ This example shows how you could have right rail design that has space between t
 		}
 	}
 
-#### Phone/Desktop Targeting (Approach 2)
+### Phone/Desktop Targeting (Approach 2)
 	#wrapper{
 		display: block;
 
@@ -214,7 +220,7 @@ This example shows how you could have right rail design that has space between t
 		}
 	}
 
-#### Phone/Desktop Targeting (Approach 3)
+### Phone/Desktop Targeting (Approach 3)
 	#wrapper{
 		@include desktop{
 			display: block;
