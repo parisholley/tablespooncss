@@ -1,0 +1,11 @@
+@mixin phone{
+	@media screen and (max-width: $tablespoon-phone) {
+		@content;
+	}
+}
+
+@mixin desktop{
+	@media screen and (min-width: $tablespoon-phone + 1) {
+		@content;
+	}
+}
