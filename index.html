@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Tablespoon by parisholley</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Tablespoon</h1>
+        <h2>Sassy and simple responsive design using CSS tables. Look ma, NO GRID!</h2>
+        <a href="https://github.com/parisholley/tablespooncss" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Philosophy</h1>
+
+<h2>No Math, No Gutters, No "Grid" Just Simple</h2>
+
+<p>Every CSS/Grid/Responsive framework in my opinion is just too complicated and limiting.</p>
+
+<ul>
+<li>Want a mixture of fixed AND fluid columns? Nope!</li>
+<li>What 2 columns in header, 5 in the content area and 4 in the footer? Nope! (unless you want to have a 40 (2*5*4) column grid)</li>
+<li>Want to center verticly without hacks? Nope!</li>
+<li>Want to calculate optimal widths, gutters, padding, golden ratio and the circumference of the earth in your head? Nope! Get a calculator.</li>
+</ul><p>In this design, I go with the idea that the "grid"/table is PURE layout. If you need padding or gutters, add it to your content. It isn't neccessary to design your layout around the idea that columns can be moved around at will. How often do you really do that?</p>
+
+<p>Keep your grid simple, nice even numbers/percentages and add spacing when it is needed, otherwise you will fight frameworks when you want to use the full width of the column;</p>
+
+<h2>No Markup</h2>
+
+<p>From what I have seen, all frameworks that live outside of SASS require markup. Here is the progression of styling over the years:</p>
+
+<ol>
+<li>Tables, auto-height, styling for the win!</li>
+<li>Tables defy the semantic gods and are for n00bs, use divs! </li>
+<li>I'm sippin on my margarita, sitting on a floatie, look how my divs resize with the browser!</li>
+<li>w00t, media queries, lets make CSS complicated: RESPONSIVE! GRIDS! LIGHTS! BUTTONS! MOOOOOOBILLLLLLEEEEE!</li>
+<li>I just want this thing to work on mobile.</li>
+</ol><p>I am at #5 at this point. A designer provides a PSD, and it needs to look good. What major problems do these frameworks truly solve that is worth the complication?</p>
+
+<h2>box-sizing: border-box</h2>
+
+<p>This in my opinion reinforces simplicity. If I say the width is 1000px, it is a 1000px, regardless of padding, borders, etc. You can always wrap a container and style it or place padding on the actual content, and not your layout.</p>
+
+<h1>Behavior</h1>
+
+<h2>Mobile or Desktop Only</h2>
+
+<p>Currently, I had no need to customize the design based on tablets, so it makes this library very simple. All definitions by default apply to the desktop and mobile will fallback to a single column design. HOWEVER, there is nothing stopping you from using media queries on columns and optimizing further on a table, this library will not lock you into a grid.</p>
+
+<h2>Fixed, then Fluid</h2>
+
+<p>By default, any widths/percentages passed into mixins will ONLY apply to the desktop. Any table that is defined as a fixed width will become fluid soon as it becomes to big to display in the browser.</p>
+
+<h1>How To Use</h1>
+
+<p>I assume at this point you know how to setup a SASS project, if not, im sorry, just too lazy to tell you how.</p>
+
+<h2>Import</h2>
+
+<p>Currently, you just need to drop this repo into a folder (call it "tablespoon"?) that is relative to your other .scss files and include this:</p>
+
+<pre><code>@import "tablespoon/tablespoon";
+</code></pre>
+
+<p>At some point I will turn this into a ruby GEM.</p>
+
+<h2>Examples</h2>
+
+<h3>Fixed Widths</h3>
+
+<pre><code>#wrapper{
+    @include table(1000px);
+
+    #col1{
+        @include column;
+        width: 700px;
+    }
+
+    #col2{
+        @include column;
+        width: 300px;
+    }
+}
+</code></pre>
+
+<h3>Fluid Widths</h3>
+
+<pre><code>#wrapper{
+    @include table(1000px);
+
+    #col1{
+        @include column;
+        width: 70%; // 700px
+    }
+
+    #col2{
+        @include column;
+        width: 30%; // 300px
+    }
+}   
+</code></pre>
+
+<h3>Hybrid Widths</h3>
+
+<pre><code>#wrapper{
+    @include table(1000px);
+
+    #col1{
+        // because no width is defined, this will be fluid.
+        @include column;
+    }
+
+    #col2{
+        @include column;
+        width: 300px;
+    }
+}       
+</code></pre>
+
+<h3>Nested Columns</h3>
+
+<pre><code>#wrapper{
+    @include table(1000px);
+
+    #col1{
+        // because no width is defined, this will be fluid.
+        @include column;
+
+        #content{
+            @include table; //defaults to 100%
+
+            #left{
+                @include column;
+                width: 25%;
+            }
+
+            #right{
+                @include column;
+                width: 75%;
+            }
+        }
+    }
+
+    #col2{
+        @include column;
+        width: 300px;
+    }
+}
+</code></pre>
+
+<h3>Media Query Widths</h3>
+
+<p>In this example, I can define my own behavior based on the device width without being locked into a grid layout or HTML markup.</p>
+
+<pre><code>#wrapper{
+    @include table(1000px);
+
+    #col1{
+        @include column;
+    }
+
+    #col2{
+        @include column;
+
+        @media screen and (max-width: 768px) {
+            width: 200px;
+        }
+
+        @media screen and (min-width: 769px) {
+            width: 300px;
+        }
+    }
+}
+</code></pre>
+
+<h3>Padding Wrapper (All Devices)</h3>
+
+<pre><code>#wrapper{
+    @include table(1000px); // effective width is 960px due to padding
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+</code></pre>
+
+<h3>Padding Wrapper (Only on Desktop)</h3>
+
+<p>I would recommend not going with this approach as typically a slight padding looks good on every width (even mobile), but perhaps you want a smaller amount when on mobile.</p>
+
+<pre><code>#wrapper{
+    padding-left: 10px; // applies to mobile
+    padding-right: 10px;
+
+    @include table(1000px){
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+</code></pre>
+
+<h3>Padding Column (Only on Desktop)</h3>
+
+<p>This example shows how you could have right rail design that has space between the main content, but only applies on the desktop because when on mobile this will be a single column layout and a 20px padding will look odd.</p>
+
+<pre><code>#wrapper{
+    @include table(1000px);
+    padding: 0 20px;
+
+    #left{
+        @include column;
+    }
+
+    #right{
+        @include column{
+            padding-left: 20px;
+        }
+
+        width: 300px;
+    }
+}
+</code></pre>
+
+<h3>Phone/Desktop Targeting (Approach 1)</h3>
+
+<pre><code>#wrapper{
+    display: none;
+
+    @include desktop{
+        display: block;
+    }
+}
+</code></pre>
+
+<h3>Phone/Desktop Targeting (Approach 2)</h3>
+
+<pre><code>#wrapper{
+    display: block;
+
+    @include mobile{
+        display: none;
+    }
+}
+</code></pre>
+
+<h3>Phone/Desktop Targeting (Approach 3)</h3>
+
+<pre><code>#wrapper{
+    @include desktop{
+        display: block;
+    }
+
+    @include mobile{
+        display: none;
+    }
+}
+</code></pre>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/parisholley/tablespooncss/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/parisholley/tablespooncss/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/parisholley/tablespooncss"></a> is maintained by <a href="https://github.com/parisholley">parisholley</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
