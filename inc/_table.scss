@@ -9,6 +9,7 @@ $ts-responsive: true;
 }
 
 @mixin table($width:100%, $responsive: true){
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 
 	$ts-responsive: $responsive;
